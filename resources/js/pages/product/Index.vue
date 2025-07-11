@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="js">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { Head, Link } from '@inertiajs/vue3';

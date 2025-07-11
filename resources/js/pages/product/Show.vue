@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="js">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Head, Link } from '@inertiajs/vue3';
