@@ -4,21 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('brand');
-            $table->text('description');
-            $table->unsignedInteger('price');
-            $table->decimal('weight', 10, 2);
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('category_id')->constrained();
+            $table->string('email')->nullable()->unique();
+            $table->string('phone')->nullable();
+            $table->string('cpf_cnpj')->nullable()->unique();
+            $table->text('address')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('clientes');
     }
 };

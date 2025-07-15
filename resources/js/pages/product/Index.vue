@@ -19,6 +19,10 @@ const breadcrumbs = [
         title: 'Dashboard',
         href: '/dashboard',
     },
+    {
+        title: 'Products',
+        href: '/products',
+    }
 ];
 
 </script>
