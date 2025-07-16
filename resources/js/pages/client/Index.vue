@@ -1,10 +1,12 @@
 <script setup lang="js">
 import AppLayout from '@/layouts/AppLayout.vue'; // Verifique se o caminho do AppLayout está correto (Layouts ou layouts)
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table'; // Verifique se o caminho é Components ou components
-import { Head, Link, usePage } from '@inertiajs/vue3'; // Importe usePage para acessar flash messages
+import { Head, Link } from '@inertiajs/vue3'; // Importe usePage para acessar flash messages
 import { Button, buttonVariants } from '@/components/ui/button'; // Verifique se o caminho é Components ou components
 // Importar a função deleteClient do seu composable
 import { deleteClient } from '@/composables/useClient'; // <--- AQUI!
+import ClientCreateDialog from './ClientCreateDialog.vue'; // Importe o novo componente de dialog
+import ClientEditDialog from './ClientEditDialog.vue'; // Importe o novo componente de dialog de edição
 
 
 defineProps({
@@ -34,8 +36,7 @@ const breadcrumbs = [
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div class="mt-3 flex justify-between items-center">
-                <Link :href="route('clients.create')" :class="buttonVariants({ variant: 'outline' })">Add Client
-                </Link>
+                <ClientCreateDialog />
             </div>
             <Table>
                 <TableHeader>
@@ -64,10 +65,7 @@ const breadcrumbs = [
                         <TableCell>{{ client.cpf_cnpj || 'N/A' }}</TableCell>
                         <TableCell class="max-w-[200px] truncate">{{ client.address || 'N/A' }}</TableCell>
                         <TableCell class="space-x-2">
-                            <Link :href="route('clients.show', client)"
-                                :class="buttonVariants({ variant: 'secondary' })">Show</Link>
-                            <Link :href="route('clients.edit', client)" :class="buttonVariants({ variant: 'default' })">
-                            Edit</Link>
+                            <ClientEditDialog :client="client" />
                             <Button variant="destructive" @click="deleteClient(client.id)">Delete</Button>
                         </TableCell>
                     </TableRow>

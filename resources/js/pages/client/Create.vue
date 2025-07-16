@@ -40,12 +40,12 @@ const breadcrumbs = [
         href: '/dashboard',
     },
     {
-        title: 'Manage Products',
-        href: '/products',
+        title: 'Manage Clients',
+        href: '/clients',
     },
     {
         title: 'Add Product',
-        href: '/products',
+        href: '/clients',
     },
 ];
 
