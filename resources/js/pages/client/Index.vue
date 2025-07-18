@@ -7,7 +7,8 @@ import { Button, buttonVariants } from '@/components/ui/button'; // Verifique se
 import { deleteClient } from '@/composables/useClient'; // <--- AQUI!
 import ClientCreateDialog from './ClientCreateDialog.vue'; // Importe o novo componente de dialog
 import ClientEditDialog from './ClientEditDialog.vue'; // Importe o novo componente de dialog de edição
-
+// Importe as novas funções de formatação
+import { formatCpfCnpj, formatPhone } from '@/helpers/formatters'; // <--- Nova importação aqui!
 
 defineProps({
     // A prop agora é 'clients' e terá a estrutura de paginação do Laravel
@@ -61,7 +62,12 @@ const breadcrumbs = [
                         </TableCell>
                         <TableCell>{{ client.name }}</TableCell>
                         <TableCell>{{ client.email || 'N/A' }}</TableCell>
-                        <TableCell>{{ client.phone || 'N/A' }}</TableCell>
+                        <TableCell>
+                            {{ formatPhone(client.phone) }}
+                        </TableCell>
+                        <TableCell>
+                            {{ formatCpfCnpj(client.cpf_cnpj) }}
+                        </TableCell>
                         <TableCell>{{ client.cpf_cnpj || 'N/A' }}</TableCell>
                         <TableCell class="max-w-[200px] truncate">{{ client.address || 'N/A' }}</TableCell>
                         <TableCell class="space-x-2">

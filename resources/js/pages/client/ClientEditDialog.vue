@@ -110,21 +110,39 @@ defineExpose({
             </DialogHeader>
             <Card>
                 <CardContent class="space-y-3">
-                    <form class="space-y-6" @submit.prevent="handleSubmit">
-                        <div class="grid w-full gap-2">
-                            <Label for="name">Name</Label>
-                            <Input id="name" autocomplete="off" v-model="form.name" />
-                            <InputError :message="form.errors.name" />
+                    <form class="space-y-5" @submit.prevent="handleSubmit">
+                        <div class="flex flex-col items-center gap-2">
+                            <Label>Profile Photo</Label>
+                            <div v-if="form.profile_photo_path && !form.profile_photo_remove" class="mb-2">
+                                <img :src="`/storage/${form.profile_photo_path}`" alt="Current Profile Photo"
+                                    class="w-24 h-24 rounded-full object-cover">
+                            </div>
+                            <Input id="profile_photo" type="file" @change="handleFileChange" class="max-w-xs" />
+                            <InputError :message="form.errors.profile_photo" />
+                            <div class="flex items-center space-x-2 mt-2">
+                                <Checkbox id="remove_photo" :checked="form.profile_photo_remove"
+                                    @update:checked="handleRemovePhotoChange" />
+                                <Label for="remove_photo">Remove current photo</Label>
+                            </div>
                         </div>
-                        <div class="grid w-full gap-2">
-                            <Label for="cpf_cnpj">CPF/CNPJ</Label>
-                            <Input id="cpf_cnpj" autocomplete="off" v-model="form.cpf_cnpj" />
-                            <InputError :message="form.errors.cpf_cnpj" />
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="grid lg:col-span-2 w-full gap-2">
+                                <Label for="name">Name</Label>
+                                <Input id="name" autocomplete="off" v-model="form.name" />
+                                <InputError :message="form.errors.name" />
+                            </div>
+                            <div class="grid lg:col-span-1 w-full gap-2">
+                                <Label for="cpf_cnpj">CPF/CNPJ</Label>
+                                <Input id="cpf_cnpj" autocomplete="off" v-model="form.cpf_cnpj"
+                                    v-mask="['###.###.###-##', '##.###.###/####-##']" />
+                                <InputError :message="form.errors.cpf_cnpj" />
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div class="grid w-full gap-2">
                                 <Label for="phone">Phone</Label>
-                                <Input type="tel" autocomplete="off" id="phone" v-model="form.phone" />
+                                <Input type="tel" autocomplete="off" id="phone" v-model="form.phone"
+                                    v-mask="['(##) ####-####', '(##)# ####-####']" />
                                 <InputError :message="form.errors.phone" />
                             </div>
                             <div class="grid w-full gap-2">
@@ -137,19 +155,6 @@ defineExpose({
                             <Label for="address">Address</Label>
                             <Textarea id="address" autocomplete="off" v-model="form.address" />
                             <InputError :message="form.errors.address" />
-                        </div>
-
-                        <div class="grid w-full gap-2">
-                            <Label>Profile Photo</Label>
-                            <div v-if="form.profile_photo_path && !form.profile_photo_remove" class="mb-2">
-                                <img :src="`/storage/${form.profile_photo_path}`" alt="Current Profile Photo" class="w-24 h-24 rounded-full object-cover">
-                            </div>
-                            <Input id="profile_photo" type="file" @change="handleFileChange" />
-                            <InputError :message="form.errors.profile_photo" />
-                            <div class="flex items-center space-x-2 mt-2">
-                                <Checkbox id="remove_photo" :checked="form.profile_photo_remove" @update:checked="handleRemovePhotoChange" />
-                                <Label for="remove_photo">Remove current photo</Label>
-                            </div>
                         </div>
 
                         <div class="flex justify-end items-center gap-4">
